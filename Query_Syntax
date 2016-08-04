@@ -1,0 +1,15 @@
+mysql> SELECT a.calftag, a.x, a.y, a.recorddate, b.calftag, b.x, b.y, b.recorddate
+FROM rawrtls a, rawrtls b
+WHERE a.calftag < b.calftag
+ AND ((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)) <= 0.09
+ AND a.calftag = 101 and b.calftag = 102
+ AND a.recorddate between '2016-05-04 19:00:00' and '2016-05-04 19:00:30'
+ LIMIT 0,70;
+
+//Using a self-join to pull cow(a), cow(b), their x and y coordinates, and record dates
+//From the database rawrtls
+//Where first calftag is compared to second calftag to only pull cows from the upper triangle. Won't repeat results
+    Euclidean distance formula is issued to only pull times when cows are within threshold radius
+    Compared cows 101 and 102
+    Within a 30 second window
+    Limit result show to 70
